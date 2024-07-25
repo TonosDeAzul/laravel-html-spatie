@@ -1,4 +1,4 @@
-<form action="{{ route('users.store') }}" method="POST">
+{{ html()->form()->route('users.store')->open() }}
     @include('users.partials.form')
     <button>Subir</button>
-</form>
+{{ html()->form()->close() }}

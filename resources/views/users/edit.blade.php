@@ -1,7 +1,7 @@
-<form action=" {{ route('users.update', $user->id) }} " method="POST">
+{{ html()->modelForm($user)->route('users.update', $user->id)->open() }}
     @include('users.partials.form')
     <button type="submit">Actualizar</button>
-    <div>
+    {{-- <div>
         {{ $user }}
-    </div>
-</form>
+    </div> --}}
+{{ html()->closeModelForm() }}

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,6 +14,8 @@ class UserController extends Controller
     public function index()
     {
         //
+        $users = User::all();
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -24,17 +26,17 @@ class UserController extends Controller
         //
         return view('users.create');
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         //
         $usuario = User::create($request->all());
         return redirect()->route("users.edit", ["id" => $usuario->id]);
     }
-
+    
     /**
      * Display the specified resource.
      */
@@ -42,32 +44,31 @@ class UserController extends Controller
     {
         //
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
         //
-        // dd($id);
         $user = User::where("id", $id)->first();
-        // dd($user);
+        // dd($user->posts);
         return view("users.edit", compact('user'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserRequest $request, string $id)
     {
         //
+        // dd($this()->all());
         $user = User::where("id", $id)->first();
-        $user->name = $request->name;
-        $user->email = $request->email;
-
-        $user->save();
-        dd($user);
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        $user->update($request->all());
         // return view("users.edit", compact("user"));
+        return redirect()->back();
     }
 
     /**
@@ -76,5 +77,11 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = User::where("id", $id)->first();
+        // dd($user);
+        // dd($user->posts);
+        $user->posts()->delete();
+        $user->delete();
+        return redirect()->back();
     }
 }
