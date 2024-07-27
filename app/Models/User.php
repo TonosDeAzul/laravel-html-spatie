@@ -23,6 +23,10 @@ class User extends Authenticatable
         'password',
     ];
 
+
+    /*
+    * Relación uno a muchos
+    */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);

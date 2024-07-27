@@ -1,18 +1,22 @@
-<a href="{{ route('posts.create') }}">Create post</a>
+<a href="{{ route('users.index') }}">Volver</a>
 
 <div>
+
+    {{-- {{ $user->posts }} --}}
+    {{-- {{ $userPosts }} --}}
+
+    <div>
+        {{ $user->name }}
+    </div>
 
     <table border="1">
         <thead>
             <th>ID</th>
             <th>Título</th>
             <th>Cuerpo</th>
-            <th>Autor</th>
-            <th>Categoría</th>
-            <th>Acciones</th>
         </thead>
         <tbody>
-            @forelse ($posts as $post)
+            @forelse ($user->posts as $post)
                 <tr>
                     <td>
                         {{ $post->id }}
@@ -23,28 +27,25 @@
                     <td>
                         {{ $post->body }}
                     </td>
-                    <td>
-                        {{ $post->user->name }}
-                    </td>
-                    <td>
-                        {{ $post->category->name ?? 'No tiene categoría' }}
-                    </td>
-                    <td>
+                    {{-- <td>
+                        {{ $userData->user->name }}
+                    </td> --}}
+                    {{-- <td>
                         <a href="{{ route('posts.edit', $post->id) }}">Modificar</a>
 
                         {{ html()->modelForm($post)->route('posts.destroy', $post->id)->open() }}
                         <button type="submit">Eliminar</button>
                         {{ html()->closeModelForm() }}
-                    </td>
+                    </td> --}}
                 </tr>
             @empty
                 <tr>
                     <th>
-                        No hay nada
+                        El usuario no tiene post asociados
                     </th>
                 </tr>
             @endforelse
         </tbody>
     </table>
-    {{ $posts->links() }}
+    {{-- {{ $posts->links() }} --}}
 </div>

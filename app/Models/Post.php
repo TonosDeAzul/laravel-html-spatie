@@ -17,12 +17,30 @@ class Post extends Model
     protected $fillable = [
         'title',
         'body',
-        'user_id'
+        'user_id',
+        'category_id'
     ];
 
+    /**
+     * Devolver relación muchos a uno
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
     // protected $table = 'posts';
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class);
+    }
+
+
+    /**
+     * Devolver relación muchos a uno
+     */
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }

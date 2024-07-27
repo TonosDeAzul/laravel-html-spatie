@@ -28,11 +28,11 @@
                             <button type="submit">Eliminar</button>
                         {{ html()->closeModelForm() }}
 
+                        <a href="{{ route('users.post', $user->id) }}">Ver Posts</a>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-
 
 </div>

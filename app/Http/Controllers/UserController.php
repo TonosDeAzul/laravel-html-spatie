@@ -68,7 +68,7 @@ class UserController extends Controller
         // $user->email = $request->email;
         $user->update($request->all());
         // return view("users.edit", compact("user"));
-        return redirect()->back();
+        return redirect()->route('users.index');
     }
 
     /**
@@ -80,8 +80,21 @@ class UserController extends Controller
         $user = User::where("id", $id)->first();
         // dd($user);
         // dd($user->posts);
-        $user->posts()->delete();
+        // $user->posts()->delete();
         $user->delete();
         return redirect()->back();
+    }
+
+    /**
+     * Para ver los posts del usuario
+     */
+    public function posts(string $user_id)
+    {
+        //
+        $user = User::where('id', $user_id)->first();
+        // $userPosts = $user->posts;
+        // dd($user->posts);
+        return view("users.posts", compact('user'));
+
     }
 }

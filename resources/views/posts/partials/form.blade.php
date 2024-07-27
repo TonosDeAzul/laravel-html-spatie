@@ -21,3 +21,11 @@
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
+
+<div>
+    {{ html()->label('category_id') }}
+    {{ html()->select('category_id', $categories)->placeholder('Seleccione') }}
+    @error('category_id')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+</div>
