@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Models\Categories;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -31,7 +32,8 @@ class PostsController extends Controller
         //
         $users = User::pluck('name', 'id');
         $categories = Categories::pluck('name', 'id');
-        return view('posts.create', compact('users', 'categories'));
+        $tags = Tag::all();
+        return view('posts.create', compact('users', 'categories', 'tags'));
     }
 
     /**
@@ -41,7 +43,9 @@ class PostsController extends Controller
     {
         //
         $post = Post::create($request->all());
-        // dd($post);
+        // $post([$request->tag_id]);
+
+        $post->tags()->sync($request->tag_id);  
         return redirect()->route('posts.index');
     }
 
@@ -53,7 +57,7 @@ class PostsController extends Controller
         //
     }
 
-    /**
+    /** 
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
@@ -62,9 +66,10 @@ class PostsController extends Controller
         $post = Post::where('id', $id)->first();
         $users = User::pluck('name', 'id');
         $categories = Categories::pluck('name', 'id');
+        $tags = Tag::pluck('name', 'id');
 
         // dd($post, $users);
-        return view("posts.edit", compact('users', 'post', 'categories'));
+        return view("posts.edit", compact('users', 'post', 'categories', 'tags'));
     }
 
     /**
@@ -94,7 +99,7 @@ class PostsController extends Controller
     {
         //
         $post = Post::where('id', $id)->first();
-
+        $post->tags()->detach();
         // dd($post);
         $post->delete();
         return redirect()->back();

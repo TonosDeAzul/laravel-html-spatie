@@ -35,6 +35,11 @@ class Post extends Model
         return $this->belongsTo(Categories::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
 
     /**
      * Devolver relación muchos a uno

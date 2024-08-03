@@ -29,3 +29,13 @@
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
+
+<div>
+    @foreach ($tags as $tag)
+        {{ html()->checkbox('tag_id[]', null, $tag->id)->id('tag_' . $tag->id) }}
+        {{ html()->label($tag->name, 'tag_' . $tag->id) }}
+        @error('tag_id')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+    @endforeach
+</div>

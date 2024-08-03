@@ -9,6 +9,7 @@
             <th>Cuerpo</th>
             <th>Autor</th>
             <th>Categoría</th>
+            <th>Tag</th>
             <th>Acciones</th>
         </thead>
         <tbody>
@@ -25,9 +26,15 @@
                     </td>
                     <td>
                         {{ $post->user->name }}
+                    
                     </td>
                     <td>
                         {{ $post->category->name ?? 'No tiene categoría' }}
+                    </td>
+                    <td>
+                        @foreach ($post->tags as $tag)
+                            {{ $tag->name }}                    
+                        @endforeach
                     </td>
                     <td>
                         <a href="{{ route('posts.edit', $post->id) }}">Modificar</a>
@@ -48,3 +55,4 @@
     </table>
     {{ $posts->links() }}
 </div>
+
