@@ -40,6 +40,11 @@ class Post extends Model
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
+    public function images()
+    {
+        return $this->belongsToMany(Images::class)->withTimestamps();
+    }
+
 
     /**
      * Devolver relación muchos a uno
